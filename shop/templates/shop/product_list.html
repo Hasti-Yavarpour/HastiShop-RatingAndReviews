@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+    <title>Product List</title>
+    <link rel="stylesheet" href="{% static 'shop/css/product_list.css' %}">
+    <link rel="stylesheet" href="{% static 'shop/css/ratings.css' %}">
+
+
+
+</head>
+
+<body>
+<div class="container">
+
+    <!-- Sidebar Filters -->
+    <div class="sidebar">
+        <div class="filter-group">
+            <h3>Brand</h3>
+            {% for brand in all_brands %}
+                <label>
+                    <input type="checkbox" name="brand" value="{{ brand.name }}"
+                        {% if brand.name in selected_brands %}checked{% endif %}>
+                    {{ brand.name }}
+                </label><br>
+            {% endfor %}
+        </div>
+
+        <div class="filter-group">
+            <h3>Category</h3>
+            {% for category in all_categories %}
+                <label>
+                    <input type="checkbox" name="category" value="{{ category.name }}"
+                        {% if category.name in selected_categories %}checked{% endif %}>
+                    {{ category.name }}
+                </label><br>
+            {% endfor %}
+        </div>
+
+        <div class="filter-group">
+            <h3>Material</h3>
+            {% for material in all_materials %}
+                <label>
+                    <input type="checkbox" name="material" value="{{ material.name }}"
+                        {% if material.name in selected_materials %}checked{% endif %}>
+                    {{ material.name }}
+                </label><br>
+            {% endfor %}
+        </div>
+
+        <div class="filter-group">
+            <h3>Price Range</h3>
+            Min: <input type="number" id="minPrice" value="{{ min_price|default_if_none:'' }}" style="width: 70px;"> TL<br><br>
+            Max: <input type="number" id="maxPrice" value="{{ max_price|default_if_none:'' }}" style="width: 70px;"> TL
+        </div>
+
+        <div class="filter-group">
+            <h3>Stock</h3>
+            <label>
+                <input type="checkbox" id="inStock" {% if in_stock == '1' %}checked{% endif %}>
+                Only show products in stock
+            </label>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main">
+        <h1>🛒 Products</h1>
+
+        <!-- Sorting Dropdown -->
+        <div style="margin-bottom: 15px;">
+            <label for="sortSelect">Sort by:</label>
+            <select id="sortSelect" style="padding: 5px; margin-left: 8px;">
+                <option value="" {% if sort_by == "" %}selected{% endif %}>Default</option>
+                <option value="price_low_high" {% if sort_by == "price_low_high" %}selected{% endif %}>Price: Low to High</option>
+                <option value="price_high_low" {% if sort_by == "price_high_low" %}selected{% endif %}>Price: High to Low</option>
+            </select>
+        </div>
+
+        <!-- Search Box -->
+        <input type="text" id="searchInput" placeholder="Search for products..." value="{{ query }}" class="search-box">
+
+        <!-- Product Results (Dynamically Updated) -->
+        <div id="resultsContainer" class="product-grid">
+            {% include 'shop/partials/product_list_partial.html' %}
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'shop/js/script.js' %}"></script>
+<script src="{% static 'shop/js/rating.js' %}"></script>
+</body>
+</html>

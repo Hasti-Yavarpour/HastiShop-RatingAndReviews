@@ -1,0 +1,45 @@
+{% if products %}
+    {% for product in products %}
+    <div class="product-card" data-product-id="{{ product.id }}">
+        <!-- Product Name + Average Badge -->
+        <h4>
+            {{ product.name }}
+            <span id="avg-rating-{{ product.id }}" class="rating-inline-badge"></span>
+        </h4>
+
+        <!-- Product Info -->
+        <p><strong>Category:</strong> {{ product.category.name }}</p>
+        <p><strong>Material:</strong> {{ product.material.name }}</p>
+        <p><strong>Price:</strong> ₺{{ product.price }}</p>
+        <p><strong>Stock:</strong> {{ product.stock }}</p>
+
+        <!-- ✍️ Rate Button -->
+        <button onclick="toggleRatingForm({{ product.id }})">Rate This Product</button>
+
+        <!-- ⭐ Star Rating Form -->
+        <div id="rating-form-{{ product.id }}" style="display: none; margin-top: 10px;">
+            <div class="star-rating" id="stars-{{ product.id }}">
+                <span class="star" data-value="1">&#9733;</span>
+                <span class="star" data-value="2">&#9733;</span>
+                <span class="star" data-value="3">&#9733;</span>
+                <span class="star" data-value="4">&#9733;</span>
+                <span class="star" data-value="5">&#9733;</span>
+            </div>
+            <input type="hidden" id="rating-value-{{ product.id }}" value="0">
+            <br>
+            <textarea id="comment-{{ product.id }}" placeholder="Leave a comment (optional)" rows="2" style="width: 100%; margin-top: 5px;"></textarea>
+            <button onclick="submitReview({{ product.id }})">Submit</button>
+        </div>
+
+        <!-- 💬 Latest Reviews -->
+        <div id="latest-reviews-{{ product.id }}" class="review-section" style="margin-top: 10px;"></div>
+
+        <!-- 📊 Rating Distribution -->
+        <div id="rating-distribution-{{ product.id }}" class="rating-distribution" style="margin-top: 10px;">
+            <!-- Chart will be filled by JS -->
+        </div>
+    </div>
+    {% endfor %}
+{% else %}
+    <p>No products found.</p>
+{% endif %}

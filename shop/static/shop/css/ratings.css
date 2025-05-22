@@ -1,0 +1,86 @@
+.star-rating {
+  display: inline-block;
+  direction: ltr;
+  unicode-bidi: bidi-override;
+  font-size: 22px;
+  user-select: none;
+  margin-bottom: 5px;
+}
+
+.star-rating .star {
+  color: lightgray;
+  cursor: pointer;
+  margin-right: 2px;
+  transition: color 0.2s ease;
+}
+
+.star-rating .star.hovered,
+.star-rating .star.selected {
+  color: gold !important;
+}
+
+.rating-summary {
+  margin-bottom: 10px;
+  font-size: 14px;
+  text-align: left;
+}
+
+.rating-average-stars {
+  font-size: 16px;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.rating-total {
+  font-size: 13px;
+  color: #777;
+  margin-bottom: 10px;
+}
+
+.rating-bar-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.rating-label {
+  width: 50px;
+  font-size: 13px;
+  color: #444;
+}
+
+.rating-bar {
+  flex: 1;
+  height: 10px;
+  background-color: #eee;
+  border-radius: 5px;
+  margin: 0 8px;
+  overflow: hidden;
+}
+
+.rating-bar-fill {
+  height: 100%;
+  background-color: gold;
+  border-radius: 5px;
+  transition: width 0.3s ease;
+}
+
+.rating-count {
+  font-size: 12px;
+  color: #444;
+  min-width: 60px;
+  text-align: right;
+}
+
+.rating-inline-badge {
+  font-size: 14px;
+  color: #555;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+.review-section p {
+  font-size: 13px;
+  color: #444;
+  margin: 6px 0;
+}

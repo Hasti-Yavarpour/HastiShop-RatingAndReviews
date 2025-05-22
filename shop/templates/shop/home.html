@@ -1,0 +1,20 @@
+<!-- shop/templates/shop/home.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HastiShop Homepage</title>
+</head>
+<body>
+    <h1>🏠 Welcome to HastiShop</h1>
+    <p>This is the home page of your Django shop project.</p>
+    <a href="{% url 'shop:product_list' %}">View Products</a>
+    {% if user.is_staff %}
+        <div style="margin: 20px;">
+            <a href="{% url 'shop:review_moderation' %}" style="padding: 10px 15px; background: #f3f3f3; border: 1px solid #ccc; text-decoration: none; color: #333; border-radius: 5px;">
+                🛡️ Go to Review Moderation
+            </a>
+        </div>
+    {% endif %}
+</body>
+</html>

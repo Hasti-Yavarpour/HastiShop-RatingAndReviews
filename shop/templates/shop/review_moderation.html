@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Moderate Reviews</title>
+    <link rel="stylesheet" href="{% static 'shop/css/moderation.css' %}">
+</head>
+<body>
+    <h1>🛡️ Review Moderation Panel</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Rating</th>
+                <th>Comment</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for review in reviews %}
+            <tr id="review-{{ review.id }}">
+                <td>{{ review.product.name }}</td>
+                <td>{{ review.rating }} ★</td>
+                <td>{{ review.comment }}</td>
+                <td>{{ review.created_at|timesince }} ago</td>
+                <td>
+                    <button onclick="moderateReview({{ review.id }}, 'approve')">✅ Approve</button>
+                    <button onclick="moderateReview({{ review.id }}, 'delete')">🗑️ Delete</button>
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="5">🎉 No pending reviews</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <script>
+        function moderateReview(reviewId, action) {
+            fetch(`/shop/api/reviews/${reviewId}/${action}/`, {
+                method: 'POST',
+                headers: {'X-CSRFToken': '{{ csrf_token }}'}
+            })
+            .then(res => res.json())
+            .then(data => {
+                alert(data.message);
+                document.getElementById(`review-${reviewId}`).remove();
+            });
+        }
+    </script>
+</body>
+</html>
